@@ -15,7 +15,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension
 
 @PactFolder("target/pacts")
 @ExtendWith(PactConsumerTestExt::class, SpringExtension::class)
-class ContractTest {
+class ConsumerContractTest {
     @Pact(provider = "user-provider-service", consumer = "user-consume-service")
     fun userPact(builder: PactDslWithProvider): RequestResponsePact {
         val responseBody = LambdaDsl.newJsonBody { user ->
