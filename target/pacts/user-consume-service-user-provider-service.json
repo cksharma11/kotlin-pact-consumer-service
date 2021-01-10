@@ -1,0 +1,87 @@
+{
+  "provider": {
+    "name": "user-provider-service"
+  },
+  "consumer": {
+    "name": "user-consume-service"
+  },
+  "interactions": [
+    {
+      "description": "a request to get user",
+      "request": {
+        "method": "GET",
+        "path": "/user",
+        "generators": {
+          "path": {
+            "type": "ProviderState",
+            "expression": "/user",
+            "dataType": "STRING"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json; charset=UTF-8"
+        },
+        "body": {
+          "lastName": "someLastName",
+          "name": "someName",
+          "age": "20"
+        },
+        "matchingRules": {
+          "body": {
+            "$.name": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.age": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            },
+            "$.lastName": {
+              "matchers": [
+                {
+                  "match": "type"
+                }
+              ],
+              "combine": "AND"
+            }
+          },
+          "header": {
+            "Content-Type": {
+              "matchers": [
+                {
+                  "match": "regex",
+                  "regex": "application/json(;\\s?charset=[\\w\\-]+)?"
+                }
+              ],
+              "combine": "AND"
+            }
+          }
+        }
+      },
+      "providerStates": [
+        {
+          "name": "a user is present"
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "3.0.0"
+    },
+    "pact-jvm": {
+      "version": "4.1.9"
+    }
+  }
+}
